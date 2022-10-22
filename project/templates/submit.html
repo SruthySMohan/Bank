@@ -1,0 +1,23 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div>
+    <img class="my_image my_image_padding" src="{% static 'img/success.png' %}" alt=""  width="1295px;" height="550px">
+</div>
+{% if user.is_authenticated %}
+{% for i in f %}
+<h3> {{i.name}} is registered successfully.Our team will connect you in the number {{i.number}}</h3>
+
+
+{% endfor %}
+{% endif %}
+
+   <p> Your Registration is Successfully Completed </p>
+
+<a class="btn btn-warning" href="{% url 'home' %}">Return Home Page</a>
+
+
+{% endblock %}
+

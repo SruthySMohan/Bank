@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration Form</title>
+       <script>
+        var subjectObject = {
+  "Alappuzha": {
+    "Kayamkulam": ["Current","Savings","Fixed"],
+    "Chengannur": ["Current","Savings","Fixed"],
+    "Ambalappuzha": ["Current","Savings","Fixed"],
+  },
+  "Kollam": {
+    "Kottarakara": ["Current","Savings","Fixed"],
+    "Punalur": ["Current","Savings","Fixed"],
+    "Kadappakkada":["Current","Savings","Fixed"],
+  },
+  "Ernakulam":{
+     "Aluva": ["Current","Savings","Fixed"],
+    "Edappally": ["Current","Savings","Fixed"],
+    "Perumbavoor":["Current","Savings","Fixed"],
+
+  },
+    "Ernakulam":{
+     "Aluva": ["Current","Savings","Fixed"],
+    "Edappally": ["Current","Savings","Fixed"],
+    "Perumbavoor":["Current","Savings","Fixed"],
+
+  },
+   "Pathanamthitta":{
+     "Pandalam": ["Current","Savings","Fixed"],
+    "Edapon": ["Current","Savings","Fixed"],
+    "Adoor":["Current","Savings","Fixed"],
+
+  }
+}
+window.onload = function() {
+  var subjectSel = document.getElementById("subject");
+  var topicSel = document.getElementById("topic");
+  var chapterSel = document.getElementById("chapter");
+  for (var x in subjectObject) {
+    subjectSel.options[subjectSel.options.length] = new Option(x, x);
+  }
+  subjectSel.onchange = function() {
+
+     chapterSel.length = 1;
+     topicSel.length = 1;
+
+     for (var y in subjectObject[this.value]) {
+        topicSel.options[topicSel.options.length] = new Option(y, y);
+    }
+  }
+  topicSel.onchange = function() {
+
+    chapterSel.length = 1;
+
+    var z = subjectObject[subjectSel.value][this.value];
+    for (var i = 0; i < z.length; i++) {
+      chapterSel.options[chapterSel.options.length] = new Option(z[i], z[i]);
+    }
+  }
+}
+</script>
+</head>
+<body>
+<h3>Form Requirements</h3>
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="text" name="name" placeholder="Enter your name"><br>
+    <input type="date" name="dob" placeholder="DOB"><br>
+    <label>Gender :</label>
+    <label style="padding:15px">Female</label>
+    <input type="radio" name="gender">
+    <label>Male</label>
+    <input type="radio" name="gender"><br>
+
+    <input type="number" name="number" placeholder="Mobile Number"><br>
+    <input type="text" name="address" placeholder="Enter your address"><br>
+    <input type="email" name="email" placeholder="Enter your mail id"><br>
+<!--    <input type="text" name="district" placeholder="District"><br><br>-->
+<!--    <input type="text" name="branches" placeholder="Branches"><br>-->
+<!--    <input type="text" name="account" placeholder="Account Type"><br>-->
+<!--    <input type="text" name="materilalsprovided" placeholder="Materiala Provided"><br>-->
+
+     <form name="form1" id="form1" action="" method="POST">
+            {% csrf_token %}
+    Districts: <select name="subject" id="subject">
+    <option value="" selected="selected">Select District</option>
+  </select>
+  <br>
+    Branches: <select name="topic" id="topic">
+    <option value="" selected="selected">Please select branch</option>
+  </select>
+  <br>
+    Account: <select name="chapter" id="chapter">
+    <option value="" selected="selected">Please select account type</option>
+  </select>
+  <br>
+            <label>Materials Provided : </label>
+
+  <label>Credit Card</label>
+<input type="checkbox">
+<label>Debit Card</label>
+<input type="checkbox"><br>
+    <input type="submit" onsubmit="demo()">
+
+</form>
+    <br>
+    <a class="btn btn-warning" href="{% url 'logout' %}">Logout</a>
+</body>
+</html>
